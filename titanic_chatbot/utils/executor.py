@@ -7,63 +7,6 @@ import plotly.express as px
 import pandas as pd
 import ast
 
-def summarize_plot(fig):
-    try:
-        if isinstance(fig, plt.Figure):
-            ax = fig.axes[0]
-            plot_data = []
-
-            # Handle common matplotlib plot types
-            for container in ax.containers:  # for bar charts
-                labels = [tick.get_text() for tick in ax.get_xticklabels()]
-                values = [patch.get_height() for patch in container]
-                plot_data.append({
-                    "labels": labels,
-                    "values": values
-                })
-
-            # For histograms, line plots, etc.
-            if not plot_data and ax.lines:
-                line = ax.lines[0]
-                plot_data.append({
-                    "x": line.get_xdata().tolist(),
-                    "y": line.get_ydata().tolist()
-                })
-
-            return {
-                "type": "matplotlib",
-                "title": ax.get_title(),
-                "xlabel": ax.get_xlabel(),
-                "ylabel": ax.get_ylabel(),
-                "data": plot_data
-            }
-
-        elif isinstance(fig, (go.Figure, px.Figure)):
-            plot_data = []
-            for trace in fig.data:
-                trace_data = {}
-                if hasattr(trace, "x") and hasattr(trace, "y"):
-                    trace_data["x"] = list(trace.x) if trace.x is not None else []
-                    trace_data["y"] = list(trace.y) if trace.y is not None else []
-                if hasattr(trace, "labels") and hasattr(trace, "values"):
-                    trace_data["labels"] = list(trace.labels)
-                    trace_data["values"] = list(trace.values)
-                plot_data.append(trace_data)
-
-            layout = fig.layout
-            return {
-                "type": "plotly",
-                "title": layout.title.text if layout.title else "",
-                "xlabel": layout.xaxis.title.text if layout.xaxis and layout.xaxis.title else "",
-                "ylabel": layout.yaxis.title.text if layout.yaxis and layout.yaxis.title else "",
-                "data": plot_data
-            }
-
-    except Exception as e:
-        return {"type": "error", "error": str(e)}
-    
-    return {"type": "none"}
-
 def execute_code(code, df):
     stdout = io.StringIO()
     local_vars = {
@@ -123,3 +66,61 @@ def execute_code(code, df):
 
     except Exception as e:
         return f"❌ Error: {str(e)}", None, ""
+
+
+def summarize_plot(fig):
+    try:
+        if isinstance(fig, plt.Figure):
+            ax = fig.axes[0]
+            plot_data = []
+
+            # Handle common matplotlib plot types
+            for container in ax.containers:  # for bar charts
+                labels = [tick.get_text() for tick in ax.get_xticklabels()]
+                values = [patch.get_height() for patch in container]
+                plot_data.append({
+                    "labels": labels,
+                    "values": values
+                })
+
+            # For histograms, line plots, etc.
+            if not plot_data and ax.lines:
+                line = ax.lines[0]
+                plot_data.append({
+                    "x": line.get_xdata().tolist(),
+                    "y": line.get_ydata().tolist()
+                })
+
+            return {
+                "type": "matplotlib",
+                "title": ax.get_title(),
+                "xlabel": ax.get_xlabel(),
+                "ylabel": ax.get_ylabel(),
+                "data": plot_data
+            }
+
+        elif isinstance(fig, (go.Figure, px.Figure)):
+            plot_data = []
+            for trace in fig.data:
+                trace_data = {}
+                if hasattr(trace, "x") and hasattr(trace, "y"):
+                    trace_data["x"] = list(trace.x) if trace.x is not None else []
+                    trace_data["y"] = list(trace.y) if trace.y is not None else []
+                if hasattr(trace, "labels") and hasattr(trace, "values"):
+                    trace_data["labels"] = list(trace.labels)
+                    trace_data["values"] = list(trace.values)
+                plot_data.append(trace_data)
+
+            layout = fig.layout
+            return {
+                "type": "plotly",
+                "title": layout.title.text if layout.title else "",
+                "xlabel": layout.xaxis.title.text if layout.xaxis and layout.xaxis.title else "",
+                "ylabel": layout.yaxis.title.text if layout.yaxis and layout.yaxis.title else "",
+                "data": plot_data
+            }
+
+    except Exception as e:
+        return {"type": "error", "error": str(e)}
+    
+    return {"type": "none"}

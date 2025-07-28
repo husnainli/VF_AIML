@@ -1,0 +1,25 @@
+# Define the full pool of suggested questions (outside any if)
+all_suggested_questions = [
+    "What was the survival rate for women?",
+    "How many children (age < 12) survived?",
+    "Show a pie chart of survival by class.",
+    "What is the average age of survivors vs non-survivors?",
+    "How many people traveled with family?",
+    "What was the average fare by class?",
+    "Which age group had the highest survival rate?",
+    "Show a histogram of ages of survivors.",
+    "What’s the survival rate for each embark point?",
+    "How many passengers were traveling alone?",
+    "Compare survival of males and females by class.",
+    "What is the median age of passengers?",
+    "What is the survival rate for passengers under 18?",
+    "What percentage of passengers had fare > 50?",
+    "Show a bar chart of family size vs survival.",
+    "Who were the oldest and youngest survivors?",
+    "Did passengers with siblings survive more?",
+    "How many passengers had the same last name?",
+    "How many survived from 3rd class?",
+    "Did females in 1st class survive more than males?",
+    "How does survival rate vary by ticket class?",
+    "Show survival by age using a violin plot."
+]

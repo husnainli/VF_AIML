@@ -1,0 +1,39 @@
+/* layout.css */
+
+/* Remove padding */
+.block-container {
+    padding-top: 1rem;
+    padding-bottom: 0;
+}
+
+/* Align left + main + right columns with vertical separation */
+.custom-container {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.sidebar-left, .main-area, .sidebar-right {
+    padding: 1rem;
+    background-color: #fafafa;
+    border-radius: 10px;
+}
+
+.sidebar-left {
+    flex: 1;
+    border-right: 2px solid #eee;
+}
+
+.main-area {
+    flex: 2.5;
+}
+
+.sidebar-right {
+    flex: 1;
+    border-left: 2px solid #eee;
+}
+
+.suggested-btn {
+    width: 100%;
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+}
