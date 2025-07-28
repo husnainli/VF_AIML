@@ -33,3 +33,5 @@ with main_col:
     render_chat_history()
 
     render_question_input_and_processing(df)
+
+    st.markdown("""<div style="margin-top: 100px;"></div>""",unsafe_allow_html=True)

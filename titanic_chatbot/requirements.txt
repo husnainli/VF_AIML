@@ -4,4 +4,4 @@ plotly
 matplotlib
 openai
 python-dotenv
-tiktoken
+seaborn
